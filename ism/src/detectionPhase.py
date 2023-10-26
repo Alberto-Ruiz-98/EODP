@@ -137,7 +137,7 @@ class detectionPhase(initIsm):
         """
         #TODO
 
-        toa[:,5] = toa[:,5] *(1- bad_pix_red)
+        toa[:,5] = toa[:,5] * (1- bad_pix_red)
         #toa[:,5] = toa[:,5] * dead_pix_red
 
         return toa
