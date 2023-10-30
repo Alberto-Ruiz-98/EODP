@@ -57,6 +57,7 @@ class videoChainPhase(initIsm):
         """
         #TODO
 
+        # Change from electrons to volts
         toa = toa * OCF * gain_adc #[V]
 
         return toa
