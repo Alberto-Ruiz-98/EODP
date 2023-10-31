@@ -150,11 +150,11 @@ class detectionPhase(initIsm):
         :return: TOA after adding PRNU [e-]
         """
         #TODO
-        alt,act = [toa.shape]
-        PRNU = np.random.normal(0, 1,act) * kprnu  # Adimensional [-]
-        for ii in range(alt):
 
-            toa[ii,:] = toa(ii,0) * (1+PRNU) #[e-]
+        PRNU = np.random.normal(0, 1, toa.shape[1]) * kprnu  # Adimensional [-]
+        for act in range(toa.shape[1]):
+
+            toa[:,act] = toa[:,act] * (1+PRNU[act]) #[e-]
 
         return toa
 
@@ -172,12 +172,12 @@ class detectionPhase(initIsm):
         """
         #TODO
 
-        alt, act = [toa.shape]
-        DSNU = abs(np.random.normal(0,1,act)) * kdsnu #Adimensional [-]
+
+        DSNU = abs(np.random.normal(0,1, toa.shape[1])) * kdsnu #Adimensional [-]
         Sd = ds_A_coeff * (T / Tref) ** 3 * np.exp(-ds_B_coeff*(1/T-1/Tref)) #[e-]
         DS = Sd * (1+DSNU) #[e-]
-        for ii in range(alt):
+        for act in range(toa.shape[1]):
 
-            toa[ii,:] = toa(ii,0) +DS #[e-]
+            toa[:,act] = toa[:,act] + DS[act] #[e-]
 
         return toa
