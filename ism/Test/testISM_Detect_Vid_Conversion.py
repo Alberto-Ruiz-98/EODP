@@ -14,7 +14,7 @@ from config.l1bConfig import l1bConfig
 #Check for all bands that the differences with respect to the output TOA (ism_toa_) are <0.01% for at least 3-sigma of the points.
 
 bands = ['VNIR-0','VNIR-1','VNIR-2','VNIR-3']
-Alberto_toa_path = r"C:\ALBERTO\EODP\EODP_TER\\EODP-TS-ISM\outputsAlberto"
+Alberto_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-ISM\outputsAlberto"
 luss_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-ISM\output"
 
 ism_toa_ = 'ism_toa_'
