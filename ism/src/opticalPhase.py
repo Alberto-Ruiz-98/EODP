@@ -109,8 +109,8 @@ class opticalPhase(initIsm):
         # TODO
         GE = fft2(toa) #2D Image Fourier Transform
         toa_ft_frequency_domain = GE * fftshift(Hsys)
-        toa_ft_spatial_domain = ifft2(toa_ft_freq_dom)
-        toa_ft = np.real(toa_ft_spatial_dom)
+        toa_ft_spatial_domain = ifft2(toa_ft_frequency_domain)
+        toa_ft = np.real(toa_ft_spatial_domain)
         #Check that the imagnary part is NEGLIGIBLE
         return toa_ft
 
