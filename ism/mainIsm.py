@@ -6,7 +6,7 @@ from ism.src.ism import ism
 # Directory - this is the common directory for the execution of the E2E, all modules
 auxdir = r'C:\ALBERTO\EODP\Test2\auxiliary'
 indir = r'C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-E2E\sgm_out' # small scene
-outdir = r'C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-E2E\outputsAlberto'
+outdir = r'C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-E2E\outputsAlbertoISM'
 
 
 # Initialise the ISM

@@ -105,10 +105,10 @@ class detectionPhase(initIsm):
         :return: Toa in photons
         """
         #TODO
-        Ein = toa * area_pix * tint #[J]
-        Ephoton = self.constants.h_planck * self.constants.speed_light / wv #[J]
-
-        toa_ph = Ein / Ephoton #[ph]
+        Ein =toa * area_pix * tint # [J]
+        Ephotons = self.constants.h_planck * self.constants.speed_light / wv # [J]
+        
+        toa_ph = Ein/ 1000 / Ephotons # [ph]
 
         return toa_ph
 
@@ -120,9 +120,9 @@ class detectionPhase(initIsm):
         :return: toa in electrons
         """
         #TODO
-
+        
         toae = toa * QE
-
+        
         return toae
 
     def badDeadPixels(self, toa,bad_pix,dead_pix,bad_pix_red,dead_pix_red):
@@ -136,10 +136,9 @@ class detectionPhase(initIsm):
         :return: toa in e- including bad & dead pixels
         """
         #TODO
-
-        toa[:,5] = toa[:,5] * (1- bad_pix_red)
-        #toa[:,5] = toa[:,5] * dead_pix_red
-
+        
+        toa[:,5] = toa[:,5] * (1-bad_pix_red)
+        
         return toa
 
     def prnu(self, toa, kprnu):
@@ -150,12 +149,14 @@ class detectionPhase(initIsm):
         :return: TOA after adding PRNU [e-]
         """
         #TODO
-
-        PRNU = np.random.normal(0, 1, toa.shape[1]) * kprnu  # Adimensional [-]
+        
+        Normal = np.random.normal(0., 1., toa.shape[1])
+        PRNU = Normal * kprnu # Adimensional [-]
+        
         for act in range(toa.shape[1]):
-
-            toa[:,act] = toa[:,act] * (1+PRNU[act]) #[e-]
-
+        
+            toa[:,act] = toa[:, act] * (1 + PRNU[act])
+            
         return toa
 
 
@@ -171,13 +172,15 @@ class detectionPhase(initIsm):
         :return: TOA in [e-] with dark signal
         """
         #TODO
+        
+        DSNU = np.abs(np.random.normal(0., 1., toa.shape[1])  * kdsnu) # Adimensional [-]
 
+        Sd = ds_A_coeff * (T/Tref)**3 * np.exp(-ds_B_coeff*(1/T-1/Tref))
 
-        DSNU = abs(np.random.normal(0,1, toa.shape[1])) * kdsnu #Adimensional [-]
-        Sd = ds_A_coeff * (T / Tref) ** 3 * np.exp(-ds_B_coeff*(1/T-1/Tref)) #[e-]
-        DS = Sd * (1+DSNU) #[e-]
+        DS = Sd * (1 + DSNU)
+
         for act in range(toa.shape[1]):
-
-            toa[:,act] = toa[:,act] + DS[act] #[e-]
+        
+            toa[:,act] = toa[:,act] + DS[act]
 
         return toa

@@ -30,6 +30,8 @@ class opticalPhase(initIsm):
         # Calculation and application of the ISRF
         # -------------------------------------------------------------------------------
         self.logger.info("EODP-ALG-ISM-1010: Spectral modelling. ISRF")
+
+        #isrf, isrf_wv = readIsrf(self.auxdir + self.ismConfig.isrffile, band)
         toa = self.spectralIntegration(sgm_toa, sgm_wv, band)
 
         self.logger.debug("TOA [0,0] " +str(toa[0,0]) + " [e-]")
@@ -59,9 +61,10 @@ class opticalPhase(initIsm):
                                 self.ismConfig.defocus, self.ismConfig.ksmear, self.ismConfig.kmotion,
                                 self.outdir, band)
 
-        # Apply system MTF
+        # Apply system MTF Slide. 66 GE=fft2(toa)
         toa = self.applySysMtf(toa, Hsys) # always calculated
         self.logger.debug("TOA [0,0] " +str(toa[0,0]) + " [e-]")
+
 
 
 
@@ -93,9 +96,9 @@ class opticalPhase(initIsm):
         :return: TOA image in irradiances [mW/m2]
         """
         # TODO
-
-        toa = toa * Tr * pi/4 * (D/f)**2
-
+        
+        toa = toa * Tr * (np.pi/4) * (D/f)**2 
+        
         return toa
 
 
@@ -107,11 +110,13 @@ class opticalPhase(initIsm):
         :return: TOA image in irradiances [mW/m2]
         """
         # TODO
-        GE = fft2(toa) #2D Image Fourier Transform
-        toa_ft_frequency_domain = GE * fftshift(Hsys)
-        toa_ft_spatial_domain = ifft2(toa_ft_frequency_domain)
-        toa_ft = np.real(toa_ft_spatial_domain)
-        #Check that the imagnary part is NEGLIGIBLE
+        
+        GE = fft2(toa)
+        toa_ft_freq_dom = GE * fftshift(Hsys)
+        toa_ft_spatial_dom = ifft2(toa_ft_freq_dom)
+        
+        toa_ft = np.real(toa_ft_spatial_dom)
+        
         return toa_ft
 
     def spectralIntegration(self, sgm_toa, sgm_wv, band):
@@ -123,19 +128,18 @@ class opticalPhase(initIsm):
         :return: TOA image 2D in radiances [mW/m2]
         """
         # TODO
-
         isrf, isrf_wv = readIsrf(self.auxdir + self.ismConfig.isrffile,band)
         # normalize isrf
         isrf_n = isrf / (np.sum(isrf))
-        sum_isrf_n = np.sum(isrf_n)  # sum = 1.0
+        #sum_isrf_n = np.sum(isrf_n)  # sum = 1.0
 
         # Initialize the output toa (third dimension removed)
         toa = np.zeros((sgm_toa.shape[0], sgm_toa.shape[1]))
 
         # Double Loop for interpolation
-        for ialt in range(sgm_toa.shape[0]):
+        for ialt in range(len(sgm_toa)):
 
-            for iact in range(sgm_toa.shape[1]):
+            for iact in range(len(sgm_toa[0])):
                 # interpolate to the frequencies of the ISRF
                 cs = interp1d(sgm_wv, sgm_toa[ialt, iact, :], fill_value=(0, 0), bounds_error=False)
 
