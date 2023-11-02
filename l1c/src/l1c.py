@@ -4,7 +4,7 @@
 from l1c.src.initL1c import initL1c
 from common.io.writeToa import writeToa, readToa
 from common.io.readGeodetic import readGeodetic, getCorners
-import mgrs
+from mgrspy import mgrs
 import numpy as np
 from scipy.interpolate import bisplrep, bisplev
 import matplotlib.pyplot as plt
@@ -66,18 +66,19 @@ class l1c(initL1c):
         
         tck = bisplrep(lat, lon, toa)
         mgrs_tiles = set([])
-        m = mgrs.MGRS()
+        #m = mgrs.toMgrs()
         #mg_mgrs = np.zeros((lat.shape[0], lat.shape[1]))
         for i in range(lat.shape[0]):
             for j in range(lat.shape[1]):
-                mgrs_tiles.add(str(m.toMGRS(lat[i, j], lon[i, j],True, self.l1cConfig.mgrs_tile_precision)))
+                mgrs_tiles.add(str(mgrs.toMgrs(lat[i, j], lon[i, j], self.l1cConfig.mgrs_tile_precision)))
 
         mgrs_tiles = list(mgrs_tiles)
+
         lat_l1c = np.zeros(len(mgrs_tiles))
         lon_l1c = np.zeros(len(mgrs_tiles))
         toa_l1c = np.zeros(len(mgrs_tiles))
         for i in range(len(mgrs_tiles)):
-            lat_l1c[i], lon_l1c[i] = m.toLatLon(mgrs_tiles[i], True)
+            lat_l1c[i], lon_l1c[i] = mgrs.toWgs(mgrs_tiles[i])
             toa_l1c[i] = bisplev(lat_l1c[i], lon_l1c[i], tck)
         toa_2 = np.sort(toa_l1c)
         

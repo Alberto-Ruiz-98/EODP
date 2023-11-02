@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.special import j1
 from numpy.matlib import repmat
 from common.io.readMat import writeMat
-#from common.io.readArray import writeArray
+from common.io.readArray import writeArray
 from common.plot.plotMat2D import plotMat2D
 from scipy.interpolate import interp2d
 from numpy.fft import fftshift, ifft2
@@ -83,8 +83,8 @@ class mtf:
         writeMat(self.outdir, 'Hsmear_' + band, Hsmear)
         writeMat(self.outdir, 'Hmotion_' + band, Hmotion)
         writeMat(self.outdir, 'Hsys_' + band, Hsys)
-        #writeArray(self.outdir, 'fnAct_' + band, fnAct)
-        #writeArray(self.outdir, 'fnAlt_' + band, fnAlt)
+        writeArray(self.outdir, 'fnAct_' + band, fnAct)
+        writeArray(self.outdir, 'fnAlt_' + band, fnAlt)
 
         return Hsys
 
