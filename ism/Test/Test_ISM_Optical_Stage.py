@@ -160,7 +160,7 @@ for band in bands:
     plt.plot(np.full(2, 0.5), np.linspace(0, 1, 2), linestyle='--', color='black')
     plt.xlabel('Spatial frequencies f/(1/w) [-]')
     plt.ylabel('MTF')
-    plt.title("System MTF, slice ALT for " + band + " (for the central pixels of ACT)")
+    plt.title("System MTF, slice ALT for " + band )
     plt.legend(
         ['Diffraction MTF', 'Defocus MTF', 'WFE Aberration MTF', 'Detector MTF', 'Smearing MTF', 'Motion blur MTF',
          'System MTF', 'f Nyquist'])
