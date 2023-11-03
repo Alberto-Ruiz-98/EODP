@@ -12,7 +12,7 @@ from config.l1bConfig import l1bConfig
 # least 3-sigma of the points.
 
 bands = ['VNIR-0','VNIR-1','VNIR-2','VNIR-3']
-Alberto_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-L1B\outputsAlberto"
+Alberto_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-L1B\outputsAlberto_True"
 luss_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-L1B\output"
 isrf_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-ISM\output"
 
@@ -70,8 +70,8 @@ for band in bands:
         plt.plot(isrf_toa[ALT_central_line])
         plt.xlabel('ACT pixel [-]')
         plt.ylabel('TOA [mW/m2/sr]')
-        plt.title("Effect of equalization for " + band)
-        plt.legend(['TOA LB1 with eq', 'TOA after the ISRF'])
+        plt.title("Equalization Effect - " + band)
+        plt.legend(['TOA LB1 with Eq', 'TOA after ISRF'])
         plt.savefig("l1b_plot_eq"+band+".png") 
         plt.show() 
     else:
@@ -79,8 +79,8 @@ for band in bands:
         plt.plot(isrf_toa[ALT_central_line])
         plt.xlabel('ACT pixel [-]')
         plt.ylabel('TOA [mW/m2/sr]')
-        plt.title("Effect of no equalization for " + band)
-        plt.legend(['TOA LB1 without eq', 'TOA after the ISRF'])
+        plt.title("NO Equalization Effect - " + band)
+        plt.legend(['TOA LB1 wo Eq', 'TOA after ISRF'])
         plt.savefig("l1b_plot_no_eq" + band + ".png")
         plt.show()
 
