@@ -42,7 +42,7 @@ for band in bands:
     # Calculate the number of matching values 
     matching_values = np.sum(boolean_comparison == Trues_Matrix)
     # 3-Sigma Condition
-    threshold = 0.997 * total_values
+    threshold = 0.997 * Tot_Values
     # Apply 3-Sigma Condition to the matching values
     is_3sigma = matching_values >= threshold
 

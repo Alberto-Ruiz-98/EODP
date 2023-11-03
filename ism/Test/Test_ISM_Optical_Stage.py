@@ -14,7 +14,7 @@ from config.l1bConfig import l1bConfig
 #Check for all bands that the differences with respect to the output TOA (ism_toa_isrf) are <0.01% for at least 3-sigma of the points.
 
 bands = ['VNIR-0','VNIR-1','VNIR-2','VNIR-3']
-Alberto_toa_path = r"C:\ALBERTO\EODP\EODP_TER\\EODP-TS-ISM\outputsAlberto"
+Alberto_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-ISM\outputsAlberto"
 luss_toa_path = r"C:\ALBERTO\EODP\Test2\EODP_TER\EODP-TS-ISM\output"
 
 ism_toa_isrf = 'ism_toa_isrf_'
@@ -141,7 +141,7 @@ for band in bands:
     plt.plot(np.full(2, 0.5), np.linspace(0, 1, 2), linestyle='--', color='black')
     plt.xlabel('Spatial frequencies f/(1/w) [-]')
     plt.ylabel('MTF')
-    plt.title("System MTF, slice ACT for " + band + " (for the central pixels of ALT)")
+    plt.title("System MTF, slice ACT for " + band )
     plt.legend(['Diffraction MTF', 'Defocus MTF', 'WFE Aberration MTF', 'Detector MTF', 'Smearing MTF', 'Motion blur MTF', 'System MTF','f Nyquist'])
     plt.xlim(-0.025, 0.525)
     plt.ylim(-0.025, 1.025)
