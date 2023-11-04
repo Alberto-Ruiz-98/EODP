@@ -38,6 +38,9 @@ class l1c(initL1c):
             # -------------------------------------------------------------------------------
             writeL1c(self.outdir, self.globalConfig.l1c_toa + band, lat_l1c, lon_l1c, toa_l1c)
 
+            # Results Plots
+            self.plotL1cToa(lat_l1c, lon_l1c, toa_l1c, band)
+
             self.logger.info("End of BAND " + band)
 
         self.logger.info("End of the L1C Module!")
@@ -96,7 +99,7 @@ class l1c(initL1c):
         if lat.shape[0] != toa.shape[0] or lat.shape[1] != toa.shape[1]:
             print('Be careful, different size arrays')
             
-def plotL1cToa(self, lat_l1c, lon_l1c, toa_l1c, band):
+    def plotL1cToa(self, lat_l1c, lon_l1c, toa_l1c, band):
         jet = cm.get_cmap('jet', len(lat_l1c))
         toa_l1c[np.argwhere(toa_l1c < 0)] = 0
         max_toa = np.max(toa_l1c)
